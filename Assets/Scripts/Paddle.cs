@@ -5,31 +5,24 @@ using UnityEngine.InputSystem;
 public class Paddle : MonoBehaviour
 {
     [SerializeField]
-    private float minYBound = -4f;
-    [SerializeField]
-    private float maxYBound = 4;
-    [SerializeField]
-    private float speed = 10f;
+    private PaddleData paddleData;
 
+    // References to components
     private new Rigidbody2D rigidbody;
-
-    private float verticalInput = 0f;
+    
+    // Local fields
+    private float verticalInput;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    private void Start()
     {
-        
+        verticalInput = 0;
     }
-
-    void Update()
-    {
-        
-    }
-
+    
     private void FixedUpdate()
     {
         Move();
@@ -37,22 +30,20 @@ public class Paddle : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        switch(context.phase)
+        verticalInput = context.phase switch
         {
-            case InputActionPhase.Performed:
-                verticalInput = context.ReadValue<float>();
-                break;
-
-            case InputActionPhase.Canceled:
-                verticalInput = 0f;
-                break;
-        }
+            InputActionPhase.Performed => context.ReadValue<float>(),
+            InputActionPhase.Canceled => 0f,
+            _ => verticalInput
+        };
     }
 
     private void Move()
     {
-        Vector2 targetPosition = rigidbody.position + speed * Time.fixedDeltaTime * new Vector2(0, verticalInput);
-        targetPosition.y = Mathf.Clamp(targetPosition.y, minYBound, maxYBound);
+        var targetPosition = rigidbody.position;
+        var targetY = rigidbody.position.y + paddleData.Speed * Time.fixedDeltaTime * verticalInput;
+        targetPosition.y = Mathf.Clamp(targetY, paddleData.Bounds.Lower, paddleData.Bounds.Upper);
+        
         rigidbody.MovePosition(targetPosition);
     }
 }
