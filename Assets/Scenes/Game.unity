@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145e3c7463a22504f9c30b08e6eeb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddleData: {fileID: 11400000, guid: f363e604134fae04db298b068d034c13, type: 2}
+  paddleData: {fileID: 11400000, guid: 34497e5453755314b930778e5cbcc068, type: 2}
 --- !u!61 &1548388478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145e3c7463a22504f9c30b08e6eeb97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddleData: {fileID: 11400000, guid: f363e604134fae04db298b068d034c13, type: 2}
+  paddleData: {fileID: 11400000, guid: 34497e5453755314b930778e5cbcc068, type: 2}
 --- !u!61 &2016136497
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1434,6 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f95ba015e9b78d43a9c5a0a0f64168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballData: {fileID: 11400000, guid: 6d3a83480a9218644a74d69be66eb845, type: 2}
 --- !u!61 &2115631831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1494,7 +1495,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

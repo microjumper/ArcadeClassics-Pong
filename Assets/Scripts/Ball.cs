@@ -1,12 +1,14 @@
-using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private float speed = 7.5f;
+    [SerializeField]
+    private BallData ballData;
     
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
+    
+    private float speed;
     
     private void Awake()
     {
@@ -14,36 +16,70 @@ public class Ball : MonoBehaviour
         collider = GetComponent<Collider2D>();
     }
 
-    private void Start()
-    {
-        rigidbody.linearVelocity = new Vector2(1, 1).normalized * speed;
-    }
-
+    private void Start() => Launch();
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            var ballDirection = -other.relativeVelocity;
-            rigidbody.linearVelocity = new Vector2(ballDirection.x, -ballDirection.y);
+            HandleWallCollision(other);
+            
+            return;
         }
-
-        if (other.gameObject.TryGetComponent<Paddle>(out var paddle))
+        
+        if (other.gameObject.TryGetComponent<Paddle>(out _))
         {
-            float relativeY = other.contacts[0].point.y - paddle.transform.position.y;
-            
-            float hitFactor = relativeY / collider.bounds.extents.y;
-            
-            Vector2 newDirection = new Vector2(-transform.position.x, hitFactor).normalized;
-            
-            float currentSpeed = other.relativeVelocity.magnitude;
-            
-            rigidbody.linearVelocity = newDirection * currentSpeed;
-
+            HandlePaddleCollision(other);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //TODO Set the score, reset the ball
+        if (other.gameObject.CompareTag("GoalLine"))
+        {
+            transform.position = Vector2.zero;
+        
+            Launch();
+        }
+    }
+
+    private void Launch()
+    {
+        speed = ballData.speed;
+        
+        var bounceAngleInRadians = ballData.maxBounceAngleInDegrees * Mathf.Deg2Rad;
+        var angle = Random.Range(-bounceAngleInRadians, bounceAngleInRadians);
+        
+        rigidbody.linearVelocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized * speed;
+    }
+    
+    private void HandleWallCollision(Collision2D collision)
+    {
+        var incoming = -collision.relativeVelocity;
+        var normal = collision.contacts[0].normal;
+        
+        var reflected = Vector2.Reflect(incoming, normal);
+
+        rigidbody.linearVelocity = reflected.normalized * incoming.magnitude;
+    }
+
+    private void HandlePaddleCollision(Collision2D collision)
+    {
+        var paddleCenter = collision.collider.bounds.center;
+        var ballCenter = collider.bounds.center;
+
+        var yOffset = ballCenter.y - paddleCenter.y;
+        
+        var normalizedRelativeY = Mathf.Clamp(yOffset / collision.collider.bounds.extents.y, -1f, 1f);
+
+        var bounceAngleInRadians = normalizedRelativeY * ballData.maxBounceAngleInDegrees * Mathf.Deg2Rad;
+        
+        var direction = Mathf.Sign(collision.GetContact(0).normal.x);
+        
+        var newSpeed = Mathf.Clamp(speed * ballData.speedIncrease, ballData.speed, ballData.maxSpeed);
+            
+        var newVelocity = new Vector2(Mathf.Cos(bounceAngleInRadians) * direction, Mathf.Sin(bounceAngleInRadians)) * newSpeed;
+        
+        rigidbody.linearVelocity = newVelocity;
     }
 }

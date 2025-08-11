@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Paddle : MonoBehaviour
 {
     [SerializeField]
@@ -41,8 +40,8 @@ public class Paddle : MonoBehaviour
     private void Move()
     {
         var targetPosition = rigidbody.position;
-        var targetY = rigidbody.position.y + paddleData.Speed * Time.fixedDeltaTime * verticalInput;
-        targetPosition.y = Mathf.Clamp(targetY, paddleData.Bounds.Lower, paddleData.Bounds.Upper);
+        var targetY = rigidbody.position.y + paddleData.speed * Time.fixedDeltaTime * verticalInput;
+        targetPosition.y = Mathf.Clamp(targetY, paddleData.bounds.Lower, paddleData.bounds.Upper);
         
         rigidbody.MovePosition(targetPosition);
     }
