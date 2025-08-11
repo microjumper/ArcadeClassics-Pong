@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(IController))]
 public class Paddle : MonoBehaviour
 {
     [SerializeField]
@@ -8,39 +8,23 @@ public class Paddle : MonoBehaviour
 
     // References to components
     private new Rigidbody2D rigidbody;
+    private IController controller;
     
-    // Local fields
-    private float verticalInput;
-
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start()
-    {
-        verticalInput = 0;
+        controller = GetComponent<IController>();
     }
     
     private void FixedUpdate()
     {
         Move();
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        verticalInput = context.phase switch
-        {
-            InputActionPhase.Performed => context.ReadValue<float>(),
-            InputActionPhase.Canceled => 0f,
-            _ => verticalInput
-        };
-    }
-
+    
     private void Move()
     {
         var targetPosition = rigidbody.position;
-        var targetY = rigidbody.position.y + paddleData.speed * Time.fixedDeltaTime * verticalInput;
+        var targetY = rigidbody.position.y + paddleData.speed * Time.fixedDeltaTime * controller.GetVerticalInput();
         targetPosition.y = Mathf.Clamp(targetY, paddleData.bounds.Lower, paddleData.bounds.Upper);
         
         rigidbody.MovePosition(targetPosition);
