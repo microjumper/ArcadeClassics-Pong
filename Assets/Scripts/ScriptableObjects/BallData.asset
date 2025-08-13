@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7.5
   speedIncrease: 1.05
-  maxSpeed: 10
-  maxBounceAngleInDegrees: 30
+  maxSpeed: 20
+  maxBounceAngleInDegrees: 45

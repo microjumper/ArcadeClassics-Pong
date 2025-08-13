@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f95ba015e9b78d43a9c5a0a0f64168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballData: {fileID: 11400000, guid: 6d3a83480a9218644a74d69be66eb845, type: 2}
+  ballDataTemplate: {fileID: 11400000, guid: 6d3a83480a9218644a74d69be66eb845, type: 2}
 --- !u!61 &2115631831
 BoxCollider2D:
   m_ObjectHideFlags: 0

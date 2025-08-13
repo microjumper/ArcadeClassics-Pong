@@ -1,13 +1,13 @@
-using System;
 using Models;
 using Strategy;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BallController : MonoBehaviour
 {
+    public BallData RuntimeBallData => ball.BallData;
+    
     [SerializeField]
-    private BallData ballData;
+    private BallData ballDataTemplate;
     
     // Components
     private new Rigidbody2D rigidbody;
@@ -22,11 +22,11 @@ public class BallController : MonoBehaviour
 
     private void Start()
     {
-        ball = new Ball(ballData);
+        ball = new Ball(Instantiate(ballDataTemplate));
 
         Launch();
     }
-
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.TryGetComponent<IBounceBehaviorProvider>(out var bounceProvider))
@@ -44,6 +44,9 @@ public class BallController : MonoBehaviour
     
     private void Launch()
     {
+        transform.position = Vector2.zero;
+        
+        ball.BallData.speed = ballDataTemplate.speed;
         ball.Direction = ball.RandomizeDirection();
         
         rigidbody.linearVelocity = ball.Direction * ball.BallData.speed;
