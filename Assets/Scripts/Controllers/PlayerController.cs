@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IController
+namespace Controllers
 {
-    private float verticalInput = 0;
-    
-    public void OnMove(InputAction.CallbackContext context)
+    public class PlayerController : MonoBehaviour, IController
     {
-        verticalInput = context.phase switch
+        private float verticalInput = 0;
+    
+        public void OnMove(InputAction.CallbackContext context)
         {
-            InputActionPhase.Performed => context.ReadValue<float>(),
-            InputActionPhase.Canceled => 0f,
-            _ => verticalInput
-        };
-    }
+            verticalInput = context.phase switch
+            {
+                InputActionPhase.Performed => context.ReadValue<float>(),
+                InputActionPhase.Canceled => 0f,
+                _ => verticalInput
+            };
+        }
 
-    public float GetVerticalInput() => verticalInput;
+        public float GetVerticalInput() => verticalInput;
+    }
 }

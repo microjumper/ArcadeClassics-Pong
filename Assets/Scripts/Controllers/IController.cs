@@ -1,4 +1,7 @@
-public interface IController
+namespace Controllers
 {
-    public float GetVerticalInput();
+    public interface IController
+    {
+        public float GetVerticalInput();
+    }
 }
