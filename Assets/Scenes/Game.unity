@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2873596592388524496, guid: 30a9ce8e8d804814bbd54d55bed712c3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5488780889664983413, guid: 30a9ce8e8d804814bbd54d55bed712c3, type: 3}
       propertyPath: m_Name
       value: Right Goal Line
@@ -598,6 +602,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2873596592388524496, guid: 30a9ce8e8d804814bbd54d55bed712c3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5488780889664983413, guid: 30a9ce8e8d804814bbd54d55bed712c3, type: 3}
       propertyPath: m_Name
       value: Left Goal Line
@@ -615,6 +623,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 189319201}
     m_Modifications:
+    - target: {fileID: 82373427281489670, guid: 77978e69f66b9cd43b00edf76c1c2722, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 82373427281489670, guid: 77978e69f66b9cd43b00edf76c1c2722, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -967,6 +979,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 189319201}
     m_Modifications:
+    - target: {fileID: 82373427281489670, guid: 77978e69f66b9cd43b00edf76c1c2722, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 82373427281489670, guid: 77978e69f66b9cd43b00edf76c1c2722, type: 3}
       propertyPath: m_LocalScale.y
       value: 1

@@ -29,6 +29,7 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
+        RuntimeBallData.speed = Mathf.Clamp(RuntimeBallData.speed, ballDataTemplate.speed, ballDataTemplate.maxSpeed);
         rigidbody.linearVelocity = Direction * RuntimeBallData.speed;
     }
 
@@ -44,7 +45,7 @@ public class Ball : MonoBehaviour
     {
         if (other.TryGetComponent<GoalLine>(out _))
         {
-            ResetBall();
+            ResetPosition();
         }
     }
     
@@ -54,11 +55,9 @@ public class Ball : MonoBehaviour
         
         RuntimeBallData.speed = ballDataTemplate.speed;
         Direction = RandomizeDirection();
-        
-        rigidbody.linearVelocity = Direction * RuntimeBallData.speed;
     }
     
-    private void ResetBall()
+    private void ResetPosition()
     {
         Launch();
     }
@@ -68,7 +67,7 @@ public class Ball : MonoBehaviour
         var bounceAngleInRadians = ballDataTemplate.maxBounceAngleInDegrees * Mathf.Deg2Rad;
         var angle = Random.Range(-bounceAngleInRadians, bounceAngleInRadians);
         
-        var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
+        var direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         return side switch
         {
