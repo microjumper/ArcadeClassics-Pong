@@ -1,4 +1,6 @@
 using Controllers;
+using Playfield;
+using ScriptableObjects;
 using UnityEngine;
 
 [RequireComponent(typeof(IController))]
@@ -11,10 +13,14 @@ public class Paddle : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private IController controller;
     
+    private Boundary yBoundary;
+    
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         controller = GetComponent<IController>();
+        
+        yBoundary = FindFirstObjectByType<Playfield.Playfield>().VerticalBoundary;
     }
     
     private void FixedUpdate()
@@ -26,7 +32,7 @@ public class Paddle : MonoBehaviour
     {
         var targetPosition = rigidbody.position;
         var targetY = rigidbody.position.y + paddleData.speed * Time.fixedDeltaTime * controller.GetVerticalInput();
-        targetPosition.y = Mathf.Clamp(targetY, paddleData.bounds.Lower, paddleData.bounds.Upper);
+        targetPosition.y = Mathf.Clamp(targetY, yBoundary.Min, yBoundary.Max);
         
         rigidbody.MovePosition(targetPosition);
     }

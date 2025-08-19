@@ -1,9 +1,8 @@
-using Models;
 using UnityEngine;
 
-namespace Strategy
+namespace BouncingBehaviors
 {
-    public class PaddleBounce : IBounceBehaviour
+    public class PaddleBounce : IBounceBehavior
     {
         public void Bounce(Ball ball, Collision2D collision)
         {
@@ -15,7 +14,7 @@ namespace Strategy
             var hitFactor = Mathf.Clamp((contactPoint.y - paddleCenter.y) / paddleExtentsY, -1, 1);
 
             ball.Direction = new Vector2(-Mathf.Sign(ball.Direction.x), hitFactor).normalized;
-            ball.BallData.speed = Mathf.Min(ball.BallData.speed * ball.BallData.speedIncrease, ball.BallData.maxSpeed); 
+            ball.RuntimeBallData.speed = Mathf.Min(ball.RuntimeBallData.speed * ball.RuntimeBallData.speedIncrease, ball.RuntimeBallData.maxSpeed); 
         }
     }
 }

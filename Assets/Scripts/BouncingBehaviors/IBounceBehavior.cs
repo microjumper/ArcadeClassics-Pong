@@ -1,9 +1,8 @@
-using Models;
 using UnityEngine;
 
-namespace Strategy
+namespace BouncingBehaviors
 {
-    public interface IBounceBehaviour
+    public interface IBounceBehavior
     {
         void Bounce(Ball ball, Collision2D collision);
     }

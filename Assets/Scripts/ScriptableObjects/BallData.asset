@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ec168d371bcea489bf34eb69dd65f3, type: 3}
   m_Name: BallData
   m_EditorClassIdentifier: 
-  speed: 7.5
-  speedIncrease: 1.05
+  speed: 8
+  speedIncrease: 1.1
   maxSpeed: 20
   maxBounceAngleInDegrees: 45
