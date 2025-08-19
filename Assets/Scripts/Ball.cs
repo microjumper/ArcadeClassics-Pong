@@ -2,6 +2,7 @@ using BouncingBehaviors;
 using Playfield;
 using ScriptableObjects;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
@@ -25,20 +26,26 @@ public class Ball : MonoBehaviour
 
         Launch();
     }
-    
+
+    private void FixedUpdate()
+    {
+        rigidbody.linearVelocity = Direction * RuntimeBallData.speed;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.TryGetComponent<IBouncingBehaviorProvider>(out var bounceProvider))
         {
             bounceProvider.BounceBehavior.Bounce(this, other);
         }
-
-        rigidbody.linearVelocity = Direction * RuntimeBallData.speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        ResetBall();
+        if (other.TryGetComponent<GoalLine>(out _))
+        {
+            ResetBall();
+        }
     }
     
     private void Launch()
