@@ -1,3 +1,4 @@
+using Audio;
 using BouncingBehaviors;
 using Playfield;
 using ScriptableObjects;
@@ -37,6 +38,8 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<IBouncingBehaviorProvider>(out var bounceProvider))
         {
+            AudioManager.Instance.Play(bounceProvider.SurfaceType);
+            
             bounceProvider.BounceBehavior.Bounce(this, other);
         }
     }
@@ -45,6 +48,8 @@ public class Ball : MonoBehaviour
     {
         if (other.TryGetComponent<GoalLine>(out _))
         {
+            AudioManager.Instance.PlayPointClip();
+            
             ResetPosition();
         }
     }

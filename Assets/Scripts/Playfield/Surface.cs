@@ -13,18 +13,26 @@ namespace Playfield
     public class Surface : MonoBehaviour, IBouncingBehaviorProvider
     {
         public IBounceBehavior BounceBehavior { get; private set; }
-    
+        public SurfaceType SurfaceType { get; private set; }
+
         [SerializeField]
         private SurfaceType surfaceType;
 
         private void Start()
         {
-            BounceBehavior = surfaceType switch
+            switch (surfaceType)
             {
-                SurfaceType.Wall => new WallBounce(),
-                SurfaceType.Paddle => new PaddleBounce(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                case SurfaceType.Wall:
+                    BounceBehavior = new WallBounce();
+                    SurfaceType = SurfaceType.Wall;   
+                    break;
+                case SurfaceType.Paddle:
+                    BounceBehavior = new PaddleBounce();
+                    SurfaceType = SurfaceType.Paddle;  
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
