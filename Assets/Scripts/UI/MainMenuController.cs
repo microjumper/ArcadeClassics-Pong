@@ -24,16 +24,10 @@ namespace UI
         {
             playButton.clicked -= OnPlayClicked;
         }
-
-        private void Start()
-        {
-            // Pause game until player starts
-            Time.timeScale = 0f;
-        }
-    
+        
         private void OnPlayClicked()
         {
-            Time.timeScale = 1f;
+            GameManager.Instance.StartGame();
         
             gameObject.SetActive(false);
         }

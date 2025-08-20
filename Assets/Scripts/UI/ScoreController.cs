@@ -7,6 +7,9 @@ namespace UI
 {
     public class ScoreController : MonoBehaviour
     {
+        [SerializeField]
+        private int targetScore = 10;
+        
         private Label leftScoreLabel;
         private Label rightScoreLabel;
         
@@ -51,6 +54,16 @@ namespace UI
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(side), side, null);
+            }
+            
+            CheckForGameOver();
+        }
+
+        private void CheckForGameOver()
+        {
+            if (leftScore >= targetScore || rightScore >= targetScore)
+            {
+                GameManager.Instance.GameOver();
             }
         }
     }
